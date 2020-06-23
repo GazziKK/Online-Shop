@@ -1,1 +1,14 @@
-<p>admin works!</p>
+<div class="box">
+  <ul class="nav flex-column nav-pills">
+    <li class="nav-item" >
+      <a class="nav-link" [routerLink]="['category']" routerLinkActive="active">Додати Категорії</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['products']" routerLinkActive="active">Додати Продукти</a>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link" [routerLink]="['orders']" routerLinkActive="active">Замовлення</a>
+    </li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

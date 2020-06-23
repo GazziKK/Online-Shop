@@ -1,1 +1,20 @@
-<p>header works!</p>
+<header>
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item" >
+      <h1 class="nav-link badge-dark">Онлайн Магазин</h1>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link badge-dark" [routerLink]="[ '/home' ]" routerLinkActive="active">Головна</a>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link badge-dark" [routerLink]="[ '/products' ]" routerLinkActive="active">Продукти</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link badge-dark" [routerLink]="[ '/basket' ]" routerLinkActive="active">Кошик</a>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link  badge-dark" [routerLink]="[ '/login' ]" routerLinkActive="active">Кабінет</a>
+    </li>
+  </ul>
+</header>
+

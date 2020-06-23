@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductsDetailsComponent } from './pages/products-details/products-details.component';
 import { BasketComponent } from './pages/basket/basket.component';
+import {HomeComponent} from './pages/home/home.component';
 
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
@@ -12,15 +13,17 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 
 
+
 const routes: Routes = [
-  {path: '', pathMatch: '', redirectTo: 'products'},
+  {path: '', pathMatch: 'full', redirectTo: 'home'},
+  {path: 'home', component: HomeComponent},
   {path: 'products', component: ProductsComponent},
   {path: 'products-details', component: ProductsDetailsComponent},
   {path: 'basket', component: BasketComponent},
 
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, children: [
-      { path: '', pathMatch: 'full', redirectTo: 'category' },
+      { path: '', pathMatch: 'full', redirectTo: 'admin' },
       { path: 'category', component: AdminCategoryComponent },
       { path: 'products', component: AdminProductsComponent },
       { path: 'orders', component: AdminOrdersComponent }

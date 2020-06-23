@@ -15,6 +15,7 @@ import { AdminCategoryComponent } from './admin/admin-category/admin-category.co
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { AdminComponent } from './admin/admin.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminComponent } from './admin/admin.component';
     AdminCategoryComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    AdminComponent
+    AdminComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
