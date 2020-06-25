@@ -53,18 +53,13 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
       }
     );
   }
-  public updateCategory(category: ICategory): void{
-    this.submited = false;
-    this.nameEn = category.nameEn;
-    this.nameUa = category.nameUA;
-    console.log(category)
-  }
-  saveCategory(category: ICategory) {
-    console.log(category)
-    this.category.nameEn = this.nameEn;
-    this.category.nameUA = this.nameUa;
-    this.catService.updateCategory(category);
-  }
+  // public updateCategory(category: ICategory): void{
+  //   this.submited = false;
+  //   this.nameEn = category.nameEn;
+  //   this.nameUa = category.nameUA;
+  //   console.log(category);
+  // }
+
 
 
   ngOnDestroy(): void {

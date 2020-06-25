@@ -10,7 +10,7 @@
         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Лише ( Латинь )" name="nameEn" [(ngModel)]="nameEn">
       </div>
       <button class="btn btn-success" (click)="addCategory()" *ngIf="submited; else edit">Додати категорію</button>
-      <ng-template #edit><button class="btn btn-success" (click)="saveCategory(category)">Редагувати категорію</button></ng-template>
+      <ng-template #edit><button class="btn btn-success" >Редагувати категорію</button></ng-template>
     </form>
   </div>
 
