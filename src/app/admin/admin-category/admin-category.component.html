@@ -1,30 +1,37 @@
-<form>
-  <div class="form-group">
-    <label for="formGroupExampleInput">Ведіть назву категорії</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Лише ( Кирилиця )" [(ngModel)]="nameUa">
+<div class="container">
+  <div class="contentItem">
+    <form class="item">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Ведіть назву категорії</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Лише ( Кирилиця )" name="nameUa" [(ngModel)]="nameUa">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Ведіть назву категорії</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Лише ( Латинь )" name="nameEn" [(ngModel)]="nameEn">
+      </div>
+      <button class="btn btn-success" (click)="addCategory()" *ngIf="submited; else edit">Додати категорію</button>
+      <ng-template #edit><button class="btn btn-success" (click)="saveCategory(category)">Редагувати категорію</button></ng-template>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Ведіть назву категорії</label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Лише ( Латинь )" [(ngModel)]="nameEn">
-  </div>
-  <button class="btn btn-success">Додати категорію</button>
-</form>
 
-<table class="table">
-  <thead>
-  <th>#</th>
-  <th>( Кирилиця )</th>
-  <th>( Латинь )</th>
-  <th></th>
-  <th></th>
-  </thead>
-  <tbody>
-  <tr *ngFor="let c of  ;let i = index">
-    <th></th>
-    <th></th>
-    <th></th>
-    <th><button class="btn btn-warning">Редагувати</button></th>
-    <th><button class="btn btn-danger">Видалити</button></th>
-  </tr>
-  </tbody>
-</table>
+  <div class="contentItem">
+    <table class="table item">
+      <thead>
+      <th>#</th>
+      <th>Кирилиця</th>
+      <th>Латинь</th>
+      <th></th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of adminCategory;let i = index">
+        <th>{{i+1}}</th>
+        <th>{{c.nameUA}}</th>
+        <th>{{c.nameEn}}</th>
+        <th><button class="btn btn-warning" (click)="updateCategory(c)">Редагувати</button></th>
+        <th><button class="btn btn-danger" (click)="deleteCategory(c.id)">Видалити</button></th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

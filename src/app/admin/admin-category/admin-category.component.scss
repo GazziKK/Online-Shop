@@ -1,3 +1,10 @@
-form{
-  width: 50%;
+.contentItem{
+  margin-bottom: 20px;
+  max-width: 320px;
 }
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
