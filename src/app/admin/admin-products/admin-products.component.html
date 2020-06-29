@@ -1,16 +1,37 @@
 <div class="container">
   <div class="contentItem">
-    <form class="item">
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
       <div class="form-group">
-        <label for="formGroupExampleInput">Ведіть назву товара</label>
-        <input type="text" class="form-control" id="formGroupExampleInput">
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput2">Ведіть назву категорії</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2">
+        <label for="category">Виберіть категорію</label>
+        <select class="form-control" id="category" formControlName="category"  >
+          <option *ngFor="let c of adminCategory; let i=index" [value]="c.id">{{c.nameUA}}</option>
+        </select>
       </div>
 
+      <div class="form-group" [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}">
+        <label for="title">Назва Товара</label>
+        <input type="text" class="form-control" id="title" formControlName="title">
+        <div class="validation" *ngIf="form.get('title').touched && form.get('title').invalid">
+          <small *ngIf="form.get('title').errors.required">Ведіть назву Товара</small>
+        </div>
+      </div>
+
+      <div class="form-group" [ngClass]="{invalid: form.get('price').touched && form.get('price').invalid}">
+        <label for="price">Ціна Товара</label>
+        <input type="text" class="form-control" id="price" formControlName="price">
+        <div class="validation" *ngIf="form.get('price').touched && form.get('title').invalid">
+          <small *ngIf="form.get('title').errors.required">Ведіть Ціну Товара</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Опис Товару:</label>
+
+      </div>
+
+
+      <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid">Додати Товар</button>
     </form>
   </div>
 
