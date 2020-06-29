@@ -4,5 +4,6 @@ export class Category implements ICategory{
   constructor(
     public nameUA: string,
     public nameEn: string,
+    public id?: number,
   ) {}
 }

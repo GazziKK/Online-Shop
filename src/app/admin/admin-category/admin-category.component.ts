@@ -4,7 +4,6 @@ import {CategoryService} from '../../shared/service/category.service.service';
 import {Category} from '../../shared/models/category.models';
 import {Subscription} from 'rxjs';
 
-
 @Component({
   selector: 'app-admin-category',
   templateUrl: './admin-category.component.html',
@@ -19,13 +18,12 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
   addSub: Subscription;
   delSub: Subscription;
   category: ICategory;
-
-  constructor(private catService: CategoryService) { }
-
+  constructor(
+    private catService: CategoryService,
+  ) { }
   ngOnInit(): void {
     this.getCategory();
   }
-
   private getCategory(): void {
     this. getSub = this.catService.getCategory().subscribe(
       data => {
@@ -35,7 +33,6 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
       }
     );
   }
-
   public addCategory(): void{
     const category: ICategory = new Category(this.nameUa, this.nameEn);
     this.addSub = this.catService.addCategory(category).subscribe(
@@ -53,15 +50,24 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
       }
     );
   }
-  // public updateCategory(category: ICategory): void{
-  //   this.submited = false;
-  //   this.nameEn = category.nameEn;
-  //   this.nameUa = category.nameUA;
-  //   console.log(category);
-  // }
+  public updateCategory(category: ICategory): void{
+    this.submited = false;
 
-
-
+    this.nameEn = category.nameEn;
+    this.nameUa = category.nameUA;
+    console.log(category);
+  }
+  update(nameUa: string, nameEn: string, ) {
+    const category: ICategory = new Category(this.nameUa = nameUa, this.nameEn = nameEn);
+    console.log(category);
+    this.catService.updateCategory(category).subscribe(
+      () => {
+        this.getCategory();
+        this.nameEn = '';
+        this.nameUa = '';
+      }
+    );
+  }
   ngOnDestroy(): void {
     if (this.getSub) {
       this.getSub.unsubscribe();
@@ -73,6 +79,4 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
       this.delSub.unsubscribe();
     }
   }
-
-
 }
