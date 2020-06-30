@@ -22,6 +22,7 @@ export class AdminProductsComponent implements OnInit {
       category: new FormControl(null, Validators.required),
       title: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
     });
     this.getCategory();
   }
@@ -38,12 +39,14 @@ export class AdminProductsComponent implements OnInit {
     if (this.form.invalid){
       return
     }
-    console.log(this.form);
     const product: IProducts = {
+      category: this.form.value.category,
       title: this.form.value.title,
       price: this.form.value.price,
       description: this.form.value.description,
       date: new Date(),
-    }
+    };
+    console.log(product);
+
   }
 }

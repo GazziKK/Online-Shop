@@ -17,8 +17,12 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
 
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +44,9 @@ import {HttpClientModule} from "@angular/common/http";
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
+        QuillModule.forRoot(),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireStorageModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,7 +12,7 @@
       <div class="form-group" [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}">
         <label for="title">Назва Товара</label>
         <input type="text" class="form-control" id="title" formControlName="title">
-        <div class="validation" *ngIf="form.get('title').touched && form.get('title').invalid">
+        <div class="alert alert-danger" role="alert" *ngIf="form.get('title').touched && form.get('title').invalid">
           <small *ngIf="form.get('title').errors.required">Ведіть назву Товара</small>
         </div>
       </div>
@@ -20,14 +20,14 @@
       <div class="form-group" [ngClass]="{invalid: form.get('price').touched && form.get('price').invalid}">
         <label for="price">Ціна Товара</label>
         <input type="text" class="form-control" id="price" formControlName="price">
-        <div class="validation" *ngIf="form.get('price').touched && form.get('title').invalid">
+        <div class="alert alert-danger" role="alert" *ngIf="form.get('price').touched && form.get('title').invalid">
           <small *ngIf="form.get('title').errors.required">Ведіть Ціну Товара</small>
         </div>
       </div>
 
       <div class="form-group">
         <label>Опис Товару:</label>
-
+        <quill-editor formControlName="description"></quill-editor>
       </div>
 
 

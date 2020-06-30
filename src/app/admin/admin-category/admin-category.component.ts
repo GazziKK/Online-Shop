@@ -2,7 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ICategory} from '../../shared/interfaces/category.interface';
 import {CategoryService} from '../../shared/service/category.service.service';
 import {Category} from '../../shared/models/category.models';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {AngularFireStorage} from '@angular/fire/storage';
+import 'firebase/storage';
 
 @Component({
   selector: 'app-admin-category',
@@ -12,14 +14,20 @@ import {Subscription} from 'rxjs';
 export class AdminCategoryComponent implements OnInit, OnDestroy {
   nameUa: string;
   nameEn: string;
+  categoryImage: string;
   adminCategory: Array<ICategory> = [];
   submited = true;
   getSub: Subscription;
   addSub: Subscription;
   delSub: Subscription;
   category: ICategory;
+
+  // fireStorage
+  uploadProgress: Observable<number>;
+
   constructor(
     private catService: CategoryService,
+    private afStorage: AngularFireStorage
   ) { }
   ngOnInit(): void {
     this.getCategory();
@@ -28,13 +36,11 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
     this. getSub = this.catService.getCategory().subscribe(
       data => {
         this.adminCategory = data;
-        console.log(this.adminCategory);
-      //  цей консол лог потрібен для того щоб подивитися що підтягується
       }
     );
   }
   public addCategory(): void{
-    const category: ICategory = new Category(this.nameUa, this.nameEn);
+    const category: ICategory = new Category(this.nameUa, this.nameEn, this.categoryImage);
     this.addSub = this.catService.addCategory(category).subscribe(
       () => {
         this.getCategory();
@@ -42,6 +48,23 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
         this.nameUa = '';
       }
     );
+  }
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const filePath = `category/${this.uuid()}.${file.type.split('/')[1]}`;
+    const task = this.afStorage.upload(filePath, file);
+    this.uploadProgress = task.percentageChanges();
+    task.then( e => {
+      this.afStorage.ref(`category/${e.metadata.name}`).getDownloadURL().subscribe( url => {
+        this.categoryImage = url;
+      });
+    });
+  }
+  uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
   public deleteCategory(category: ICategory): void{
     this.delSub = this.catService.deleteCategory(category).subscribe(

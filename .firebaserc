@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "my-app-585e9": {
+      "hosting": {
+        "Logos-Project": [
+          "my-app-585e9"
+        ]
+      }
+    }
+  }
+}

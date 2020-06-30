@@ -121,8 +121,13 @@
               "devServerTarget": "Logos-Project:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Logos-Project"
 }

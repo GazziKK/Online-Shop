@@ -9,6 +9,17 @@
         <label for="formGroupExampleInput2">Ведіть назву категорії</label>
         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Лише ( Латинь )" name="nameEn" [(ngModel)]="nameEn">
       </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Виберіть фото для Категорії</label>
+        <input (change)="uploadFile($event)" type="file" class="form-control-file" id="exampleFormControlFile1">
+      </div>
+
+      <div class="progress mb-3 mt-3">
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="( uploadProgress | async ) + '%'" aria-valuemin="0" aria-valuemax="100"></div>
+
+      </div>
+
       <button class="btn btn-success" (click)="addCategory()" *ngIf="submited; else edit">Додати категорію</button>
       <ng-template #edit><button class="btn btn-success" (click)="update(nameUa, nameEn)">Редагувати категорію</button></ng-template>
     </form>

@@ -2,15 +2,14 @@
   <h1 class="text-center">Категорії :</h1>
   <div class="category d-flex justify-content-around flex-wrap">
 
-    <div class="card-deck " *ngFor="let c of category">
+    <div class="card-deck" *ngFor="let c of category">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="{{c.image}}" class="card-img-top" alt="Category-Image">
         <div class="card-body">
-          <h5 class="card-title">Категорія </h5>
-          <p class="card-text"> {{c.nameUA}}</p>
-<!--          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+          <h5 class="card-title">{{c.nameUA}}</h5>
           <button class="btn btn-secondary btn-lg btn-block" (click)="getProducts()">Перейти до категорії</button>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
 </div>
