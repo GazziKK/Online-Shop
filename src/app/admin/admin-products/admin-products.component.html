@@ -29,30 +29,34 @@
         <label>Опис Товару:</label>
         <quill-editor formControlName="description"></quill-editor>
       </div>
+      <div class="form-group">
+        <label>Фото Товару:</label>
+        <quill-editor formControlName="img"></quill-editor>
+      </div>
 
 
       <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid">Додати Товар</button>
     </form>
   </div>
 
-<!--  <div class="contentItem">-->
+
 <!--    <table class="table item">-->
 <!--      <thead>-->
 <!--      <th>#</th>-->
-<!--      <th>Кирилиця</th>-->
-<!--      <th>Латинь</th>-->
-<!--      <th></th>-->
-<!--      <th></th>-->
+<!--      <th>Назва товару</th>-->
+<!--      <th>Ціна</th>-->
+<!--      <th>Дата створення</th>-->
 <!--      </thead>-->
 <!--      <tbody>-->
-<!--      <tr *ngFor="let c of adminCategory;let i = index">-->
+<!--      <tr *ngFor="let p of productsAdmin;let i = index">-->
 <!--        <th>{{i+1}}</th>-->
-<!--        <th>{{c.nameUA}}</th>-->
-<!--        <th>{{c.nameEn}}</th>-->
-<!--        <th><button class="btn btn-warning" (click)="updateCategory(c)">Редагувати</button></th>-->
-<!--        <th><button class="btn btn-danger" (click)="deleteCategory(c.id)">Видалити</button></th>-->
+<!--        <th>{{p.title}}</th>-->
+<!--        <th>{{p.price}}</th>-->
+<!--        <th><button class="btn btn-warning" (click)="updateCategory(p)">Редагувати</button></th>-->
+<!--        <th><button class="btn btn-danger" (click)="deleteCategory(p.id)">Видалити</button></th>-->
 <!--      </tr>-->
 <!--      </tbody>-->
 <!--    </table>-->
-<!--  </div>-->
+
+
 </div>
