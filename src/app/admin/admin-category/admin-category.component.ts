@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ICategory} from '../../shared/interfaces/category.interface';
 import {CategoryService} from '../../shared/service/category.service.service';
-import {Category} from '../../shared/models/category.models';
 import {Observable, Subscription} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import 'firebase/storage';
+import {Category} from '../../shared/models/category.models';
+
 
 @Component({
   selector: 'app-admin-category',
@@ -12,8 +13,7 @@ import 'firebase/storage';
   styleUrls: ['./admin-category.component.scss']
 })
 export class AdminCategoryComponent implements OnInit, OnDestroy {
-  nameUa: string;
-  nameEn: string;
+  categoryTitle: string;
   categoryImage: string;
   adminCategory: Array<ICategory> = [];
   submited = true;
@@ -24,6 +24,7 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
 
   // fireStorage
   uploadProgress: Observable<number>;
+  // database = firebase.database()
 
   constructor(
     private catService: CategoryService,
@@ -35,20 +36,38 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
   private getCategory(): void {
     this. getSub = this.catService.getCategory().subscribe(
       data => {
+        console.log(data)
         this.adminCategory = data;
       }
     );
   }
-  public addCategory(): void{
-    const category: ICategory = new Category(this.nameUa, this.nameEn, this.categoryImage);
-    this.addSub = this.catService.addCategory(category).subscribe(
-      () => {
-        this.getCategory();
-        this.nameEn = '';
-        this.nameUa = '';
-      }
-    );
+  // public addCategory(){
+  //   const category: ICategory = {
+  //     categoryTitle: this.categoryTitle,
+  //     image: this.categoryImage,
+  //   };
+  //   this.addSub = this.catService.addCategory(category)
+  //     .subscribe(res => {
+  //       console.log(res)
+  //       this.getCategory();
+  //       this.categoryTitle = '';
+  //     }
+  //   );
+  // }
+
+  public addCategory(){
+    const category = new Category(this.categoryTitle)
+    console.log(category)
+    this.addSub = this.catService.addCategory(category)
+      .subscribe(res => {
+          console.log(res)
+          this.getCategory();
+          this.categoryTitle = '';
+        }
+      );
   }
+
+
   uploadFile(event) {
     const file = event.target.files[0];
     const filePath = `category/${this.uuid()}.${file.type.split('/')[1]}`;
@@ -76,21 +95,23 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
   public updateCategory(category: ICategory): void{
     this.submited = false;
 
-    this.nameEn = category.nameEn;
-    this.nameUa = category.nameUA;
+    this.categoryTitle = category.id;
     console.log(category);
   }
-  update(nameUa: string, nameEn: string, ) {
-    const category: ICategory = new Category(this.nameUa = nameUa, this.nameEn = nameEn);
-    console.log(category);
-    this.catService.updateCategory(category).subscribe(
-      () => {
+  update(categoryTitle: string) {
+    const category: ICategory = {
+      categoryTitle,
+      image : this.categoryImage,
+    };
+    this.catService.updateCategory(category)
+      .subscribe(res => {
+        console.log(res)
         this.getCategory();
-        this.nameEn = '';
-        this.nameUa = '';
+        this.categoryTitle = '';
       }
     );
   }
+
   ngOnDestroy(): void {
     if (this.getSub) {
       this.getSub.unsubscribe();
