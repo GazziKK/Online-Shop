@@ -1,45 +1,48 @@
-<div class="container-sm">
-  <div class="row">
-    <div class="col-xl">
-      <form class="item">
-        <div class="form-group">
-          <label for="formGroupExampleInput">Ведіть назву категорії</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Лише ( Кирилиця )" name="categoryTitle" [(ngModel)]="categoryTitle">
-        </div>
+<div class="container">
+  <div class="contentItem">
+    <form class="item">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Ведіть назву категорії</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Лише ( Кирилиця )" name="nameUa" [(ngModel)]="nameUa">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Ведіть назву категорії</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Лише ( Латинь )" name="nameEn" [(ngModel)]="nameEn">
+      </div>
 
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Виберіть фото для Категорії</label>
+        <input (change)="uploadFile($event)" type="file" class="form-control-file" id="exampleFormControlFile1">
+      </div>
 
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Виберіть фото для Категорії</label>
-          <input (change)="uploadFile($event)" type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div>
+      <div class="progress mb-3 mt-3">
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="( uploadProgress | async ) + '%'" aria-valuemin="0" aria-valuemax="100"></div>
 
-        <div class="progress mb-3 mt-3">
-          <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="( uploadProgress | async ) + '%'" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
 
-        </div>
+      <button class="btn btn-success" (click)="addCategory()" *ngIf="submited; else edit">Додати категорію</button>
+      <ng-template #edit><button class="btn btn-success" (click)="update(nameUa, nameEn)">Редагувати категорію</button></ng-template>
+    </form>
+  </div>
 
-        <button class="btn btn-success" (click)="addCategory()" *ngIf="submited; else edit">Додати категорію</button>
-        <ng-template #edit><button class="btn btn-success" (click)="update(categoryTitle)">Редагувати категорію</button></ng-template>
-      </form>
-    </div>
-
-    <div class="col-xl">
-      <table class="table item">
-        <thead>
+  <div class="contentItem">
+    <table class="table item">
+      <thead>
       <th>#</th>
-      <th>Категорія</th>
+      <th>Кирилиця</th>
+      <th>Латинь</th>
       <th></th>
       <th></th>
       </thead>
       <tbody>
       <tr *ngFor="let c of adminCategory;let i = index">
         <th>{{i+1}}</th>
-        <th>{{c.id}}</th>
+        <th>{{c.nameUA}}</th>
+        <th>{{c.nameEn}}</th>
         <th><button class="btn btn-warning" (click)="updateCategory(c)">Редагувати</button></th>
         <th><button class="btn btn-danger" (click)="deleteCategory(c.id)">Видалити</button></th>
       </tr>
       </tbody>
     </table>
-  </div>
   </div>
 </div>

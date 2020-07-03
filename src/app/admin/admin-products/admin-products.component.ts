@@ -3,9 +3,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../shared/service/category.service.service';
 import {ICategory} from '../../shared/interfaces/category.interface';
 import {IProducts} from '../../shared/interfaces/products.interface';
-import {ProductsModels} from "../../shared/models/products.models";
-import {ProductsService} from "../../shared/service/products.service";
-import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-admin-products',
@@ -17,8 +14,7 @@ export class AdminProductsComponent implements OnInit {
   adminCategory: Array<ICategory> = [];
   form: FormGroup;
   constructor(
-    private catService: CategoryService,
-    private prodService: ProductsService
+    private catService: CategoryService
   ) { }
 
   ngOnInit(): void {
@@ -27,11 +23,8 @@ export class AdminProductsComponent implements OnInit {
       title: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
-      img: new FormControl(null),
     });
     this.getCategory();
-    this.getProduct()
-
   }
   getCategory(): void {
     this.catService.getCategory().subscribe(data => {
@@ -39,29 +32,21 @@ export class AdminProductsComponent implements OnInit {
       console.log(this.adminCategory)
     });
   }
+
+
+
   submit() {
     if (this.form.invalid){
-      return;
+      return
     }
-    const product: IProducts =  new ProductsModels(
-      this.form.value.category,
-      this.form.value.title,
-      this.form.value.price,
-      this.form.value.description,
-      new Date(),
-      this.form.value.img,
-  );
-
-    this.prodService.addProduct(product).subscribe( () => {
-      this.form.reset();
-      }
-    );
-  }
-  getProduct(): void {
-    this.prodService.getProduct().subscribe(data => {
-      console.log(data)
-
-    })
+    const product: IProducts = {
+      category: this.form.value.category,
+      title: this.form.value.title,
+      price: this.form.value.price,
+      description: this.form.value.description,
+      date: new Date(),
+    };
+    console.log(product);
 
   }
 }
