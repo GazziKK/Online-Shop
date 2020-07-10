@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, Provider} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,12 +17,22 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AuthInterceptor} from './shared/guards/auth.interceptor';
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthInterceptor
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,9 +56,12 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
         ReactiveFormsModule,
         QuillModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFireStorageModule
+        AngularFireStorageModule,
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+
     ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

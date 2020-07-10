@@ -11,6 +11,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminCategoryComponent } from './admin/admin-category/admin-category.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import {AuthGuard} from "./shared/guards/auth.guard";
 
 
 
@@ -22,7 +23,7 @@ const routes: Routes = [
   {path: 'basket', component: BasketComponent},
 
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent, children: [
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] , children: [
       { path: '', pathMatch: 'full', redirectTo: 'admin' },
       { path: 'category', component: AdminCategoryComponent },
       { path: 'products', component: AdminProductsComponent },

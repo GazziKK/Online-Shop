@@ -1,14 +1,28 @@
+
 <div class="box">
-  <form>
+  <h2 class="text-center">Війти в панель адміністратора</h2>
+  <hr>
+  <div class="alert alert-danger" role="alert" *ngIf="auth.error$ | async as error">
+    <small>{{error}}</small>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="exampleInputEmail1">Електрона Адреса</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ведіть Емейл" formControlName="email">
+      <div class="alert alert-danger" role="alert" *ngIf="form.controls['email'].touched && form.controls['email'].invalid">
+        <small>Ведіть Коректний Емейл</small>
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Пароль</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Ведіть Пароль" formControlName="password">
+      <div class="alert alert-danger" role="alert" *ngIf="form.get('password').touched && form.get('password').invalid">
+        <small *ngIf="form.get('password').errors.required">Ведіть Коректний Пароль</small>
+        <small *ngIf="form.get('password').errors.minlength">Пароль повинен бути не менше {{form.get('password').errors.minlength.requiredLength}}. Ви вели {{form.get('password') .errors.minlength.actualLength}}</small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid || submitet "><h4>Вхід</h4></button>
   </form>
 </div>

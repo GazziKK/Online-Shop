@@ -5,7 +5,7 @@
       <div class="form-group">
         <label for="category">Виберіть категорію</label>
         <select class="form-control" id="category" formControlName="category"  >
-          <option *ngFor="let c of adminCategory; let i=index" [value]="c.id">{{c.nameUA}}</option>
+          <option *ngFor="let c of adminCategory; let i=index" [value]="c.categoryTitle">{{c.categoryTitle}}</option>
         </select>
       </div>
 
@@ -30,6 +30,11 @@
         <quill-editor formControlName="description"></quill-editor>
       </div>
 
+      <div class="form-group">
+        <label>Фото Товару:</label>
+        <quill-editor formControlName="imageProd"></quill-editor>
+      </div>
+
 
       <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid">Додати Товар</button>
     </form>
@@ -39,20 +44,23 @@
 <!--    <table class="table item">-->
 <!--      <thead>-->
 <!--      <th>#</th>-->
-<!--      <th>Кирилиця</th>-->
-<!--      <th>Латинь</th>-->
-<!--      <th></th>-->
-<!--      <th></th>-->
+<!--      <th>Категорія</th>-->
+<!--      <th>Назва</th>-->
+<!--      <th>Ціна</th>-->
+<!--      <th>Дата створення</th>-->
 <!--      </thead>-->
 <!--      <tbody>-->
-<!--      <tr *ngFor="let c of adminCategory;let i = index">-->
+<!--      <tr *ngFor="let p of allProducts;let i = index">-->
 <!--        <th>{{i+1}}</th>-->
-<!--        <th>{{c.nameUA}}</th>-->
-<!--        <th>{{c.nameEn}}</th>-->
+<!--        <th>{{p.category}}</th>-->
+<!--        <th>{{p.title}}</th>-->
+<!--        <th>{{p.price}}</th>-->
+<!--        <th>{{p.date}}</th>-->
 <!--        <th><button class="btn btn-warning" (click)="updateCategory(c)">Редагувати</button></th>-->
 <!--        <th><button class="btn btn-danger" (click)="deleteCategory(c.id)">Видалити</button></th>-->
 <!--      </tr>-->
 <!--      </tbody>-->
 <!--    </table>-->
 <!--  </div>-->
+
 </div>

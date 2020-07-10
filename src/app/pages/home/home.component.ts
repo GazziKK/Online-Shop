@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   getCategory() {
     this.catServ.getCategory().subscribe(data => {
       this.category = data;
+      console.log(this.category)
     });
   }
   getProducts() {

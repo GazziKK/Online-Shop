@@ -56,7 +56,7 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
   // }
 
   public addCategory(){
-    const category = new Category(this.categoryTitle)
+    const category = new Category(this.categoryTitle, this.categoryImage);
     console.log(category)
     this.addSub = this.catService.addCategory(category)
       .subscribe(res => {
@@ -98,9 +98,9 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
     this.categoryTitle = category.id;
     console.log(category);
   }
-  update(categoryTitle: string) {
+  update() {
     const category: ICategory = {
-      categoryTitle,
+      categoryTitle: this.categoryTitle,
       image : this.categoryImage,
     };
     this.catService.updateCategory(category)
