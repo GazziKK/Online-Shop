@@ -40,27 +40,27 @@
     </form>
   </div>
 
-<!--  <div class="contentItem">-->
-<!--    <table class="table item">-->
-<!--      <thead>-->
-<!--      <th>#</th>-->
-<!--      <th>Категорія</th>-->
-<!--      <th>Назва</th>-->
-<!--      <th>Ціна</th>-->
-<!--      <th>Дата створення</th>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor="let p of allProducts;let i = index">-->
-<!--        <th>{{i+1}}</th>-->
-<!--        <th>{{p.category}}</th>-->
-<!--        <th>{{p.title}}</th>-->
-<!--        <th>{{p.price}}</th>-->
-<!--        <th>{{p.date}}</th>-->
+  <div class="contentItem">
+    <table class="table item">
+      <thead>
+      <th>#</th>
+      <th>Категорія</th>
+      <th>Назва</th>
+      <th>Ціна</th>
+      <th>Дата створення</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of adminProducts.flat();let i = index">
+        <th>{{i+1}}</th>
+        <th>{{p.category}}</th>
+        <th>{{p.title}}</th>
+        <th>{{p.price}}</th>
+        <th>{{p.date | date}}</th>
 <!--        <th><button class="btn btn-warning" (click)="updateCategory(c)">Редагувати</button></th>-->
-<!--        <th><button class="btn btn-danger" (click)="deleteCategory(c.id)">Видалити</button></th>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
+        <th><button class="btn btn-danger" (click)="deleteCategory(p)">Видалити</button></th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>

@@ -3,8 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../shared/service/category.service.service';
 import {ICategory} from '../../shared/interfaces/category.interface';
 import {IProducts} from '../../shared/interfaces/products.interface';
-import {Products} from "../../shared/models/products.models";
-import {ProductsService} from "../../shared/service/products.service";
+import {Products} from '../../shared/models/products.models';
+import {ProductsService} from '../../shared/service/products.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -12,15 +12,13 @@ import {ProductsService} from "../../shared/service/products.service";
   styleUrls: ['./admin-products.component.scss']
 })
 export class AdminProductsComponent implements OnInit {
-  // category: ICategory;
-  allProducts: IProducts;
   adminCategory: Array<ICategory> = [];
+  adminProducts: any = [];
   form: FormGroup;
   constructor(
     private catService: CategoryService,
     private prodService: ProductsService,
   ) { }
-
   ngOnInit(): void {
     this.form = new FormGroup({
       category: new FormControl(null, Validators.required),
@@ -31,7 +29,6 @@ export class AdminProductsComponent implements OnInit {
     });
     this.getCategory();
     this.getProducts();
-
   }
   getCategory(): void {
     this.catService.getCategory().subscribe(data => {
@@ -39,15 +36,14 @@ export class AdminProductsComponent implements OnInit {
     });
   }
   getProducts(): void {
-    this.prodService.getCategory().subscribe(data => {
-
-      console.log(Object.values(data))
-      console.log(Object.keys(data))
+    this.prodService.getProducts().subscribe(data => {
+      for (const datum of data) {
+        this.adminProducts.push(Object.values(datum));
+      }
+      console.log(this.adminProducts)
+      // console.log(Object.values(data)); //Доступаитися до категорій
     });
   }
-
-
-
   submit() {
     if (this.form.invalid){
       return;
@@ -61,10 +57,15 @@ export class AdminProductsComponent implements OnInit {
       date: new Date(),
     };
     console.log(product);
-    this.prodService.addCategory(product).subscribe(date => {
-      console.log(date)
-    })
+    this.prodService.addCategory(product).subscribe();
+    this.getProducts();
 
 
+  }
+  deleteCategory(product) {
+    console.log(product)
+    this.prodService.getProductId().subscribe(prod => {
+      console.log(prod)
+    });
   }
 }
