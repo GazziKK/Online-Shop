@@ -4,16 +4,17 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {ICategory} from '../interfaces/category.interface';
 import {map} from 'rxjs/operators';
-import {Category} from "../models/category.models";
+import {Category} from '../models/category.models';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService{
-  private url: string;
-
-  constructor(private http: HttpClient,) {
+  url: string;
+  constructor(
+    private http: HttpClient
+  ) {
     this.url = `${environment.firebaseConfig.databaseURL}`;
   }
   getCategory(): Observable<Array<ICategory>>{

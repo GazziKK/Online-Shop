@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../shared/service/category.service.service';
 import {ICategory} from '../../shared/interfaces/category.interface';
 import {IProducts} from '../../shared/interfaces/products.interface';
-import {Products} from '../../shared/models/products.models';
 import {ProductsService} from '../../shared/service/products.service';
 
 @Component({
@@ -40,8 +39,7 @@ export class AdminProductsComponent implements OnInit {
       for (const datum of data) {
         this.adminProducts.push(Object.values(datum));
       }
-      console.log(this.adminProducts)
-      // console.log(Object.values(data)); //Доступаитися до категорій
+      console.log(this.adminProducts);
     });
   }
   submit() {
@@ -59,13 +57,19 @@ export class AdminProductsComponent implements OnInit {
     console.log(product);
     this.prodService.addCategory(product).subscribe();
     this.getProducts();
+    this.form.reset();
 
 
   }
-  deleteCategory(product) {
-    console.log(product)
-    this.prodService.getProductId().subscribe(prod => {
-      console.log(prod)
+  deleteProduct(product) {
+    this.prodService.getProductId(product).subscribe(prod => {
+      for (const prodOne of Object.values(prod)) {
+        if (JSON.stringify(product.date) === JSON.stringify(prodOne.date)){
+          this.prodService.deleteProduct(prodOne).subscribe();
+          return;
+        }
+      }
     });
+    this.prodService.getProducts();
   }
 }

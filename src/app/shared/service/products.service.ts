@@ -13,7 +13,9 @@ import {IProducts} from '../interfaces/products.interface';
 export class ProductsService {
   private url: string;
 
-  constructor(private http: HttpClient,) {
+  constructor(
+    private http: HttpClient
+  ) {
     this.url = `${environment.firebaseConfig.databaseURL}`;
   }
   getProducts(): Observable<Array<IProducts>>{
@@ -26,26 +28,27 @@ export class ProductsService {
           }));
       }));
   }
-  getProductId(): Observable<Array<IProducts>>{
-    return this.http.get<Array<IProducts>>(`${this.url}/products.json`)
+  getProductId(product: IProducts): Observable<Array<IProducts>>{
+    return this.http.get<Array<IProducts>>(`${this.url}/products/${product.category}.json`)
       .pipe(map((response: {[key: string]: any}) => {
         return Object
           .keys(response)
           .map(key => ({
-            ...response[key]
+            ...response[key],
+            id: key
           }));
       }));
   }
+
   addCategory(product: IProducts): Observable<Array<IProducts>> {
-    return this.http.post<Array<IProducts>>(`${this.url}/products.json`, product);
+    return this.http.post<Array<IProducts>>(`${this.url}/products/${product.category}.json`, product);
   }
 
+  deleteProduct(product: IProducts): Observable<Array<IProducts>>{
+    return this.http.delete<Array<IProducts>>(`${this.url}/products/${product.category}/${product.id}.json`);
+  }
 
-  // deleteCategory(product: IProducts): Observable<Array<IProducts>>{
-  //   return this.http.delete<Array<IProducts>>(`${this.url}/products/${category}.json`);
+  // updateCategory(category: ICategory): Observable<Array<ICategory>>{
+  //   return this.http.put<Array<ICategory>>(`${this.url}/category/${category.categoryTitle}.json`, category);
   // }
-
-  updateCategory(category: ICategory): Observable<Array<ICategory>>{
-    return this.http.put<Array<ICategory>>(`${this.url}/category/${category.categoryTitle}.json`, category);
-  }
 }
