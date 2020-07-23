@@ -14,6 +14,8 @@ export class AdminProductsComponent implements OnInit {
   adminCategory: Array<ICategory> = [];
   adminProducts: any = [];
   form: FormGroup;
+  edit = false;
+  idProduct: any;
   constructor(
     private catService: CategoryService,
     private prodService: ProductsService,
@@ -70,6 +72,45 @@ export class AdminProductsComponent implements OnInit {
         }
       }
     });
-    this.prodService.getProducts();
+    this.getProducts();
   }
+  editProduct(product) {
+    this.edit = true;
+
+    this.form = new FormGroup({
+      category: new FormControl(product.category, Validators.required),
+      title: new FormControl(product.title, Validators.required),
+      price: new FormControl(product.price, Validators.required),
+      description: new FormControl(product.description),
+      imageProd: new FormControl(product.imageProd),
+    });
+    this.prodService.getProductId(product).subscribe(prod => {
+      for (const prodOne of Object.values(prod)) {
+        if (JSON.stringify(product.date) === JSON.stringify(prodOne.date)){
+          this.idProduct = prodOne.id;
+          return;
+        }
+      }
+    });
+
+  }
+  updateProduct() {
+    if (this.form.invalid){
+      return;
+    }
+    const product: IProducts = {
+      category: this.form.value.category,
+      title: this.form.value.title,
+      price: this.form.value.price,
+      description: this.form.value.description,
+      imageProd: this.form.value.imageProd,
+      id: this.idProduct,
+      date: new Date()
+    };
+    this.prodService.updateProduct(product).subscribe();
+    this.getProducts();
+    this.form.reset();
+  }
+
+
 }

@@ -36,18 +36,21 @@
       </div>
 
 
-      <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid">Додати Товар</button>
+      <button *ngIf="!edit; else editButton" type="submit" class="btn btn-block btn-success" [disabled]="form.invalid">Додати Товар</button>
+      <ng-template #editButton>
+        <button type="button" class="btn btn-block btn-success" [disabled]="form.invalid" (click)="updateProduct()">Редагувати товар</button>
+      </ng-template>
     </form>
   </div>
 
   <div class="contentItem">
     <table class="table item">
       <thead>
-      <th>#</th>
-      <th>Категорія</th>
-      <th>Назва</th>
-      <th>Ціна</th>
-      <th>Дата створення</th>
+        <th>#</th>
+        <th>Категорія</th>
+        <th>Назва</th>
+        <th>Ціна</th>
+        <th>Дата створення</th>
       </thead>
       <tbody>
       <tr *ngFor="let p of adminProducts.flat();let i = index">
@@ -56,7 +59,7 @@
         <th>{{p.title}}</th>
         <th>{{p.price}}</th>
         <th>{{p.date | date}}</th>
-<!--        <th><button class="btn btn-warning" (click)="updateCategory(c)">Редагувати</button></th>-->
+        <th><button class="btn btn-warning" (click)="editProduct(p)">Редагувати</button></th>
         <th><button class="btn btn-danger" (click)="deleteProduct(p)">Видалити</button></th>
       </tr>
       </tbody>

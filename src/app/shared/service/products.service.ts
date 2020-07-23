@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
-import {ICategory} from '../interfaces/category.interface';
 import {map} from 'rxjs/operators';
-// import {Products} from '../models/products.models';
 import {IProducts} from '../interfaces/products.interface';
 
 @Injectable({
@@ -48,7 +46,7 @@ export class ProductsService {
     return this.http.delete<Array<IProducts>>(`${this.url}/products/${product.category}/${product.id}.json`);
   }
 
-  // updateCategory(category: ICategory): Observable<Array<ICategory>>{
-  //   return this.http.put<Array<ICategory>>(`${this.url}/category/${category.categoryTitle}.json`, category);
-  // }
+  updateProduct(product: IProducts): Observable<Array<IProducts>>{
+    return this.http.put<Array<IProducts>>(`${this.url}/products/${product.category}/${product.id}.json`, product);
+  }
 }
