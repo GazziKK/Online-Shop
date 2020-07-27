@@ -5,6 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import 'firebase/storage';
 import {Category} from '../../shared/models/category.models';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -13,6 +14,7 @@ import {Category} from '../../shared/models/category.models';
   styleUrls: ['./admin-category.component.scss']
 })
 export class AdminCategoryComponent implements OnInit, OnDestroy {
+  categoryId: string;
   categoryTitle: string;
   categoryImage: string;
   adminCategory: Array<ICategory> = [];
@@ -21,16 +23,16 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
   addSub: Subscription;
   delSub: Subscription;
   category: ICategory;
-
-  // fireStorage
   uploadProgress: Observable<number>;
-  // database = firebase.database()
-
+  form: FormGroup
   constructor(
     private catService: CategoryService,
     private afStorage: AngularFireStorage
   ) { }
   ngOnInit(): void {
+    this.form = new FormGroup({
+      categoryDelete: new FormControl(null, Validators.required)
+    });
     this.getCategory();
   }
   private getCategory(): void {
@@ -41,26 +43,10 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
       }
     );
   }
-  // public addCategory(){
-  //   const category: ICategory = {
-  //     categoryTitle: this.categoryTitle,
-  //     image: this.categoryImage,
-  //   };
-  //   this.addSub = this.catService.addCategory(category)
-  //     .subscribe(res => {
-  //       console.log(res)
-  //       this.getCategory();
-  //       this.categoryTitle = '';
-  //     }
-  //   );
-  // }
-
   public addCategory(){
     const category = new Category(this.categoryTitle, this.categoryImage);
-    console.log(category)
     this.addSub = this.catService.addCategory(category)
-      .subscribe(res => {
-          console.log(res)
+      .subscribe(() => {
           this.getCategory();
           this.categoryTitle = '';
         }
@@ -95,21 +81,23 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
   public updateCategory(category: ICategory): void{
     this.submited = false;
 
-    this.categoryTitle = category.id;
-    console.log(category);
+    this.categoryTitle = category.categoryTitle;
+    this.categoryId = category.id;
   }
   update() {
     const category: ICategory = {
       categoryTitle: this.categoryTitle,
       image : this.categoryImage,
+      id: this.categoryId
     };
     this.catService.updateCategory(category)
       .subscribe(res => {
-        console.log(res)
+        console.log(res);
         this.getCategory();
         this.categoryTitle = '';
       }
     );
+    this.submited = true;
   }
 
   ngOnDestroy(): void {
@@ -122,5 +110,9 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
     if (this.delSub) {
       this.delSub.unsubscribe();
     }
+  }
+
+  deleteProductAndCategory() {
+    console.log('work');
   }
 }

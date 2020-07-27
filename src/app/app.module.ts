@@ -26,6 +26,8 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AuthInterceptor} from './shared/guards/auth.interceptor';
+import { SearchPipe } from './shared/pipes/search.pipe';
+import { SortingPipe } from './shared/pipes/sorting.pipe';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -46,7 +48,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AdminProductsComponent,
     AdminOrdersComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    SearchPipe,
+    SortingPipe
   ],
     imports: [
         BrowserModule,

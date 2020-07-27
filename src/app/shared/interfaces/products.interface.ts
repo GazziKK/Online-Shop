@@ -4,6 +4,7 @@ export interface IProducts{
   price: number;
   description: string;
   imageProd: string;
+  imageTitle: string;
   date?: Date;
   id?: number;
 }

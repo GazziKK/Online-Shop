@@ -31,6 +31,11 @@
       </div>
 
       <div class="form-group">
+        <label>Основне Фото Товару:</label>
+        <quill-editor formControlName="imageTitle"></quill-editor>
+      </div>
+
+      <div class="form-group">
         <label>Фото Товару:</label>
         <quill-editor formControlName="imageProd"></quill-editor>
       </div>
@@ -43,6 +48,30 @@
     </form>
   </div>
 
+  <div class="row">
+    <div class="col-sm">
+      <form [formGroup]="formCategory" (ngSubmit)="deleteProductAndCategory()">
+        <div class="form-group">
+          <label for="deleteCategory">Виберіть категорію</label>
+          <select class="form-control" id="deleteCategory" formControlName="categoryDelete">
+            <option *ngFor="let c of adminCategory; let i=index" [value]="c.categoryTitle">{{c.categoryTitle}}</option>
+          </select>
+          <button type="submit" class="btn btn-danger btn-block mt-3"> Видалити Категорію З Усіма Товарами</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm">
+      <div class="input-group input-group-lg mt-5">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Найти Товар...</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="productName" [(ngModel)]="productName">
+      </div>
+
+
+    </div>
+  </div>
+
   <div class="contentItem">
     <table class="table item">
       <thead>
@@ -53,7 +82,7 @@
         <th>Дата створення</th>
       </thead>
       <tbody>
-      <tr *ngFor="let p of adminProducts.flat();let i = index">
+      <tr *ngFor="let p of adminProducts.flat() | search : productName;let i = index">
         <th>{{i+1}}</th>
         <th>{{p.category}}</th>
         <th>{{p.title}}</th>

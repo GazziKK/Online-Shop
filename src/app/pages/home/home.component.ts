@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryService} from "../../shared/service/category.service.service";
 import {Router} from "@angular/router";
+import {ProductsService} from "../../shared/service/products.service";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
   category = [];
   constructor(
     private  catServ: CategoryService,
-    private route: Router
+    private route: Router,
+    private prodServ: ProductsService,
     ) { }
 
   ngOnInit(): void {
@@ -23,7 +25,8 @@ export class HomeComponent implements OnInit {
       console.log(this.category)
     });
   }
-  getProducts() {
-    this.route.navigate(['products'])
+  setCategory(categoryTitle) {
+    this.route.navigate(['products']);
+    this.prodServ.setType(categoryTitle);
   }
 }

@@ -38,7 +38,7 @@ export class CategoryService{
   }
 
   updateCategory(category: ICategory): Observable<Array<ICategory>>{
-    return this.http.put<Array<ICategory>>(`${this.url}/category/${category.categoryTitle}.json`, category);
+    return this.http.put<Array<ICategory>>(`${this.url}/category/${category.id}.json`, category);
   }
 }
 

@@ -10,7 +10,7 @@ import {IProducts} from '../interfaces/products.interface';
 })
 export class ProductsService {
   private url: string;
-
+  type = '';
   constructor(
     private http: HttpClient
   ) {
@@ -37,16 +37,20 @@ export class ProductsService {
           }));
       }));
   }
-
   addCategory(product: IProducts): Observable<Array<IProducts>> {
     return this.http.post<Array<IProducts>>(`${this.url}/products/${product.category}.json`, product);
   }
-
   deleteProduct(product: IProducts): Observable<Array<IProducts>>{
     return this.http.delete<Array<IProducts>>(`${this.url}/products/${product.category}/${product.id}.json`);
   }
-
+  deleteCategory(category): Observable<string>{
+    return this.http.delete<string>(`${this.url}/products/${category}.json`);
+  }
   updateProduct(product: IProducts): Observable<Array<IProducts>>{
     return this.http.put<Array<IProducts>>(`${this.url}/products/${product.category}/${product.id}.json`, product);
+  }
+
+  setType(type) {
+    this.type = type
   }
 }

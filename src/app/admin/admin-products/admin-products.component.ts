@@ -16,6 +16,8 @@ export class AdminProductsComponent implements OnInit {
   form: FormGroup;
   edit = false;
   idProduct: any;
+  formCategory: FormGroup;
+  productName;
   constructor(
     private catService: CategoryService,
     private prodService: ProductsService,
@@ -27,6 +29,10 @@ export class AdminProductsComponent implements OnInit {
       price: new FormControl(null, Validators.required),
       description: new FormControl(null),
       imageProd: new FormControl(null),
+      imageTitle: new FormControl(null),
+    });
+    this.formCategory = new FormGroup({
+      categoryDelete: new FormControl(null, Validators.required)
     });
     this.getCategory();
     this.getProducts();
@@ -41,7 +47,6 @@ export class AdminProductsComponent implements OnInit {
       for (const datum of data) {
         this.adminProducts.push(Object.values(datum));
       }
-      console.log(this.adminProducts);
     });
   }
   submit() {
@@ -54,6 +59,7 @@ export class AdminProductsComponent implements OnInit {
       price: this.form.value.price,
       description: this.form.value.description,
       imageProd: this.form.value.imageProd,
+      imageTitle: this.form.value.imageTitle,
       date: new Date(),
     };
     console.log(product);
@@ -83,6 +89,7 @@ export class AdminProductsComponent implements OnInit {
       price: new FormControl(product.price, Validators.required),
       description: new FormControl(product.description),
       imageProd: new FormControl(product.imageProd),
+      imageTitle: new FormControl(product.imageTitle),
     });
     this.prodService.getProductId(product).subscribe(prod => {
       for (const prodOne of Object.values(prod)) {
@@ -104,6 +111,7 @@ export class AdminProductsComponent implements OnInit {
       price: this.form.value.price,
       description: this.form.value.description,
       imageProd: this.form.value.imageProd,
+      imageTitle: this.form.value.imageTitle,
       id: this.idProduct,
       date: new Date()
     };
@@ -112,5 +120,10 @@ export class AdminProductsComponent implements OnInit {
     this.form.reset();
   }
 
-
+  deleteProductAndCategory() {
+    const category = this.formCategory.value.categoryDelete;
+    this.prodService.deleteCategory(category).subscribe();
+    this.getProducts();
+    this.formCategory.reset();
+  }
 }
