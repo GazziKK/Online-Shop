@@ -19,7 +19,7 @@
 
       <div class="form-group" [ngClass]="{invalid: form.get('price').touched && form.get('price').invalid}">
         <label for="price">Ціна Товара</label>
-        <input type="text" class="form-control" id="price" formControlName="price">
+        <input type="number" class="form-control" id="price" formControlName="price">
         <div class="alert alert-danger" role="alert" *ngIf="form.get('price').touched && form.get('title').invalid">
           <small *ngIf="form.get('title').errors.required">Ведіть Ціну Товара</small>
         </div>
@@ -73,13 +73,15 @@
   </div>
 
   <div class="contentItem">
-    <table class="table item">
-      <thead>
+    <table class="table table-responsive-lg table-dark">
+      <thead >
         <th>#</th>
         <th>Категорія</th>
         <th>Назва</th>
         <th>Ціна</th>
         <th>Дата створення</th>
+        <th></th>
+        <th></th>
       </thead>
       <tbody>
       <tr *ngFor="let p of adminProducts.flat() | search : productName;let i = index">

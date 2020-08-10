@@ -37,6 +37,18 @@ export class ProductsService {
           }));
       }));
   }
+  getProductsCategory(category: string): Observable<Array<IProducts>>{
+    return this.http.get<Array<IProducts>>(`${this.url}/products/${category}.json`)
+      .pipe(map((response: {[key: string]: any}) => {
+        return Object
+          .keys(response)
+          .map(key => ({
+            ...response[key],
+            id: key
+          }));
+      }));
+  }
+
   addCategory(product: IProducts): Observable<Array<IProducts>> {
     return this.http.post<Array<IProducts>>(`${this.url}/products/${product.category}.json`, product);
   }
@@ -50,7 +62,4 @@ export class ProductsService {
     return this.http.put<Array<IProducts>>(`${this.url}/products/${product.category}/${product.id}.json`, product);
   }
 
-  setType(type) {
-    this.type = type
-  }
 }

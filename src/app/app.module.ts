@@ -28,6 +28,9 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AuthInterceptor} from './shared/guards/auth.interceptor';
 import { SearchPipe } from './shared/pipes/search.pipe';
 import { SortingPipe } from './shared/pipes/sorting.pipe';
+import { ProductComponent } from './pages/product/product.component';
+import {NgxUiLoaderModule, NgxUiLoaderRouterModule} from 'ngx-ui-loader';
+import {ngxUiLoader} from './shared/config/preloader-config';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -50,7 +53,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AdminComponent,
     HomeComponent,
     SearchPipe,
-    SortingPipe
+    SortingPipe,
+    ProductComponent
   ],
     imports: [
         BrowserModule,
@@ -63,6 +67,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
         AngularFireStorageModule,
         AngularFireAuthModule,
         AngularFirestoreModule,
+        NgxUiLoaderModule.forRoot(ngxUiLoader),
+        NgxUiLoaderRouterModule,
+
 
     ],
   providers: [INTERCEPTOR_PROVIDER],

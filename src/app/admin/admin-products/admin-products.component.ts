@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../shared/service/category.service.service';
 import {ICategory} from '../../shared/interfaces/category.interface';
 import {IProducts} from '../../shared/interfaces/products.interface';
 import {ProductsService} from '../../shared/service/products.service';
+import {SubscriptionLike} from 'rxjs';
 
 @Component({
   selector: 'app-admin-products',
@@ -18,6 +19,7 @@ export class AdminProductsComponent implements OnInit {
   idProduct: any;
   formCategory: FormGroup;
   productName;
+  getProductSub: SubscriptionLike;
   constructor(
     private catService: CategoryService,
     private prodService: ProductsService,
@@ -38,7 +40,7 @@ export class AdminProductsComponent implements OnInit {
     this.getProducts();
   }
   getCategory(): void {
-    this.catService.getCategory().subscribe(data => {
+    this.getProductSub = this.catService.getCategory().subscribe(data => {
       this.adminCategory = data;
     });
   }
@@ -47,6 +49,7 @@ export class AdminProductsComponent implements OnInit {
       for (const datum of data) {
         this.adminProducts.push(Object.values(datum));
       }
+      console.log(this.adminProducts);
     });
   }
   submit() {
@@ -61,10 +64,12 @@ export class AdminProductsComponent implements OnInit {
       imageProd: this.form.value.imageProd,
       imageTitle: this.form.value.imageTitle,
       date: new Date(),
+      count: 1,
     };
-    console.log(product);
-    this.prodService.addCategory(product).subscribe();
-    this.getProducts();
+    this.prodService.addCategory(product).subscribe(() => {
+      this.adminProducts = [];
+      this.getProducts();
+    });
     this.form.reset();
 
 
@@ -73,16 +78,16 @@ export class AdminProductsComponent implements OnInit {
     this.prodService.getProductId(product).subscribe(prod => {
       for (const prodOne of Object.values(prod)) {
         if (JSON.stringify(product.date) === JSON.stringify(prodOne.date)){
-          this.prodService.deleteProduct(prodOne).subscribe();
-          return;
+          this.prodService.deleteProduct(prodOne).subscribe(() => {
+            this.adminProducts = [];
+            this.getProducts();
+          });
         }
       }
     });
-    this.getProducts();
   }
   editProduct(product) {
     this.edit = true;
-
     this.form = new FormGroup({
       category: new FormControl(product.category, Validators.required),
       title: new FormControl(product.title, Validators.required),
@@ -113,17 +118,23 @@ export class AdminProductsComponent implements OnInit {
       imageProd: this.form.value.imageProd,
       imageTitle: this.form.value.imageTitle,
       id: this.idProduct,
-      date: new Date()
+      date: new Date(),
+      count: 1,
     };
-    this.prodService.updateProduct(product).subscribe();
-    this.getProducts();
+    this.prodService.updateProduct(product).subscribe(() => {
+      this.adminProducts = [];
+      this.getProducts();
+    });
+    this.edit = false;
     this.form.reset();
   }
 
   deleteProductAndCategory() {
     const category = this.formCategory.value.categoryDelete;
-    this.prodService.deleteCategory(category).subscribe();
-    this.getProducts();
+    this.prodService.deleteCategory(category).subscribe( () => {
+      this.adminProducts = [];
+      this.getProducts();
+    });
     this.formCategory.reset();
   }
 }

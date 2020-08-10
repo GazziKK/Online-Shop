@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductsService} from "../../shared/service/products.service";
+import {ProductsService} from '../../shared/service/products.service';
+import {Router} from '@angular/router';
+import {OrdersService} from '../../shared/service/orders.service';
+import {IProducts} from '../../shared/interfaces/products.interface';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +14,8 @@ export class ProductsComponent implements OnInit {
   productName;
   constructor(
     public prodService: ProductsService,
-
+    private router: Router,
+    private ordersService: OrdersService,
   ) { }
 
   ngOnInit(): void {
@@ -24,5 +28,11 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
-
+  productDetails(productId) {
+    this.router.navigate([`product/${productId.category}/${productId.id}`]);
+  }
+  addToBasket(product: IProducts): void {
+    this.ordersService.addToBasket(product);
+    this.ordersService.basket.next(product);
+  }
 }

@@ -7,4 +7,5 @@ export interface IProducts{
   imageTitle: string;
   date?: Date;
   id?: number;
+  count?: 1;
 }

@@ -8,7 +8,7 @@
 
 
   <div class="row row-cols-1 row-cols-md-4">
-    <div class="col col mb-4" *ngFor="let p of adminProducts.flat() | search: productName">
+    <div class="col col mb-4" *ngFor="let p of products | search: productName">
       <div class="card h-100">
         <quill-view-html [content]="p.imageTitle" ></quill-view-html>
         <div class="card-body">
@@ -21,7 +21,7 @@
           </div>
         </ul>
         <div class="card-body">
-          <button type="button" class="btn btn-info mr-2 mt-2" (click)="productDetails(p)">Детальніше</button>
+          <button type="button" class="btn btn-info mr-2 mt-2" (click)="productId(p)">Детальніше</button>
           <button type="button" class="btn btn-success mt-2" (click)="addToBasket(p)">Добавити в Корзину</button>
         </div>
       </div>

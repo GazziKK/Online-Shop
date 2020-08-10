@@ -1,1 +1,16 @@
-<p>products-details works!</p>
+<div class="container">
+  <div class="row no-gutters bg-light position-relative shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="col-md-6 mb-md-0 p-md-4">
+      <quill-view-html [content]="productOne?.imageProd" ></quill-view-html>
+    </div>
+    <div class="col-md-6 position-static p-4 pl-md-0">
+      <ul class="list-group">
+        <li class="list-group-item"><h1><span class="badge badge-secondary">{{productOne?.title}}</span></h1></li>
+        <li class="list-group-item"><h4>Ціна: <span class="badge badge-success">{{productOne?.price}}</span></h4></li>
+        <li class="list-group-item"><h4>Дата Створення: <span class="badge badge-info">{{productOne?.date | date: 'short'}}</span></h4></li>
+        <li class="list-group-item"><h4>Детальніше: <quill-view-html [content]="productOne?.description" ></quill-view-html></h4></li>
+        <li class="list-group-item"><button class="btn btn-dark" (click)="addToBasket(productOne)">Добавити в корзину</button></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,105 @@
-<p>basket works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12" *ngIf="order.length == 0">
+      <div class="text-center">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded bg-dark">
+            <h2><span class="badge badge-dark">Корзина порожня зробіть Замовлення</span></h2>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-6 table-responsive" *ngIf="order.length !== 0">
+      <table class="table table-bordered table-dark">
+        <thead>
+        <tr>
+          <th scope="col" colspan="2"></th>
+          <th scope="col">Товар</th>
+          <th scope="col">Ціна</th>
+          <th scope="col">Кількість</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let o of order">
+          <th scope="row">
+            <button type="button" class="close" aria-label="Close">
+              <span aria-hidden="true" style="color: #ff0000" (click)="deleteOrder(o)">&times;</span>
+            </button>
+          </th>
+          <th><quill-view-html [content]="o.imageTitle"></quill-view-html></th>
+          <th>{{o.title}}</th>
+          <td>{{o.price * o.count}}</td>
+          <td>
+            <ul class="pagination">
+              <li class="page-item">
+                <span class="page-link" aria-hidden="true" (click)="productsCount(o, false)">&laquo;</span>
+              </li>
+                  <li class="page-link">{{o.count}}</li>
+              <li class="page-item">
+                <span class="page-link" aria-hidden="true" (click)="productsCount(o, true)">&raquo;</span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-lg-6" *ngIf="order.length !== 0">
+      <h2 class="text-center">Оформити замовлення по адресі</h2>
+      <hr>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="userName">Ім'я та Фамілія</label>
+          <input type="text" class="form-control" id="userName" formControlName="userName">
+          <div class="alert alert-danger" role="alert" *ngIf="form.controls['userName'].touched  && form.controls['userName'].invalid">
+            <small>Ведіть Ім'я та Фамілія</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userPhone">Ведіть номер телефону</label>
+          <input type="text" class="form-control" id="userPhone" formControlName="userPhone">
+          <div class="alert alert-danger" role="alert" *ngIf="form.controls['userPhone'].touched  && form.controls['userPhone'].invalid">
+            <small>Ведіть коректний номер телефону</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userCity">Ведіть назву міста</label>
+          <input type="text" class="form-control" id="userCity" formControlName="userCity">
+          <div class="alert alert-danger" role="alert" *ngIf="form.controls['userCity'].touched  && form.controls['userCity'].invalid">
+            <small>Ведіть коректну назву міста</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userStreet">Ведіть назву вулиці</label>
+          <input type="text" class="form-control" id="userStreet" formControlName="userStreet">
+          <div class="alert alert-danger" role="alert" *ngIf="form.controls['userStreet'].touched  && form.controls['userStreet'].invalid">
+            <small>Ведіть коректну назву вулиці</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userHouse">Ведіть Номер Будинку</label>
+          <input type="number" class="form-control" id="userHouse" formControlName="userHouse">
+          <div class="alert alert-danger" role="alert" *ngIf="form.controls['userHouse'].touched  && form.controls['userHouse'].invalid">
+            <small>Ведіть коректний номер будинку</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userComment">Додайте Коментарій</label>
+          <textarea type="text" class="form-control" id="userComment" formControlName="userComment" placeholder="Не Обовязково"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid || submitet "><h4>Оформити Замовлення</h4></button>
+      </form>
+    </div>
+
+
+
+  </div>
+
+</div>

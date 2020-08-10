@@ -1,1 +1,34 @@
-<p>admin-orders works!</p>
+<div class="container-sm">
+
+
+  <div class="card-group">
+    <div class="card" style="width: 18rem;" *ngFor="let o of orders; let i = index">
+      <div class="card-body">
+        <li class="list-group-item"><h5 class="card-title">Замовлення номер: {{i + 1}}</h5></li>
+        <ul class="list-group list-group-flush" *ngFor="let products of o.ordersDetails; let i = index">
+          <li class="list-group-item"><h4>Товар №{{i + 1}}</h4></li>
+          <quill-view-html [content]="products.imageTitle"></quill-view-html>
+          <li class="list-group-item">{{products.title}}</li>
+          <li class="list-group-item"> Загальна вартість: {{products.price * products.count}}</li>
+          <li class="list-group-item"> Вартість за одиницю: {{products.price}}</li>
+          <li class="list-group-item"> Кількість: {{products.count}}</li>
+        </ul>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h5 class="card-title">Дані Замовника</h5></li>
+        <li class="list-group-item"><strong>Ім'я Замовника:</strong> {{o.userName}}</li>
+        <li class="list-group-item"><strong>Телефон Замовника:</strong> {{o.userPhone}}</li>
+        <li class="list-group-item"><strong>Місто Замовника:</strong> {{o.userCity}}</li>
+        <li class="list-group-item"><strong>Вулиця Замовника:</strong> {{o.userStreet}}</li>
+        <li class="list-group-item"><strong>Номер будинку:</strong> {{o.userHouse}}</li>
+        <li class="list-group-item"><strong>Коментарій:</strong> {{o.userComment}}</li>
+      </ul>
+      <div class="card-body">
+        <button class="btn btn-success" (click)="successOrder(o)"> Оформити замовлення </button>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

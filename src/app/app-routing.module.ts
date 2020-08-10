@@ -5,6 +5,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { ProductsDetailsComponent } from './pages/products-details/products-details.component';
 import { BasketComponent } from './pages/basket/basket.component';
 import {HomeComponent} from './pages/home/home.component';
+import { ProductComponent } from './pages/product/product.component';
 
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: 'products', component: ProductsComponent},
-  {path: 'products-details', component: ProductsDetailsComponent},
+  {path: 'product/:category', component: ProductComponent},
+  {path: 'product/:category/:id', component: ProductsDetailsComponent},
   {path: 'basket', component: BasketComponent},
 
   { path: 'login', component: LoginComponent },
