@@ -3,3 +3,12 @@
 header{
   background-color: #343a40;
 }
+h1{
+  font-size: calc(1rem + 16 * (100vw / 1280));
+}
+body{
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.88), #0000ff);
+  main{
+    min-height: 86vh;
+  }
+}

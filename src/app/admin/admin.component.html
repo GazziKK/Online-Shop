@@ -1,17 +1,25 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-3">
-      <div class="nav flex-column nav-pills" >
-        <a class="nav-link" [routerLink]="['category']" routerLinkActive="active">Додати Категорії</a>
-        <a class="nav-link" [routerLink]="['products']" routerLinkActive="active">Додати Продукти</a>
-        <a class="nav-link" [routerLink]="['orders']" routerLinkActive="active">Замовлення</a>
-        <button class="btn btn-danger" (click)="logOut()">Вийти з панелі Адміністратора</button>
-      </div>
+    <div class="col-xl">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link badge-dark" [routerLink]="['category']" routerLinkActive="active">Додати Категорії</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link badge-dark" [routerLink]="['products']" routerLinkActive="active">Додати Продукти</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link badge-dark" [routerLink]="['orders']" routerLinkActive="active">Замовлення</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link badge-dark" [routerLink]="['login']" (click)="logOut()" routerLinkActive="active">Вийти з панелі Адміністратора</a>
+        </li>
+      </ul>
     </div>
-    <div class="col-9">
+
+    <div class="col-xl mt-5">
       <div class="tab-content">
         <router-outlet></router-outlet>
       </div>
     </div>
-  </div>
+
 </div>

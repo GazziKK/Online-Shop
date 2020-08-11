@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z0-9_]+@[a-z]{2,6}.[a-z]{2,4}')]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
+  if (this.auth.isLogin() === true){
+    this.router.navigate(['admin']);
+  }
   }
   submit() {
     if (this.form.invalid){

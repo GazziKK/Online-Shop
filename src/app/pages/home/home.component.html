@@ -1,9 +1,9 @@
+
 <div class="container-fluid">
   <h1 class="text-center">Категорії :</h1>
-<!--  <div class="category d-flex justify-content-around flex-wrap">-->
 
-  <div class="row row-cols-1 row-cols-md-3">
-    <div class="col col mb-4" *ngFor="let c of category">
+  <div class="row row-cols-1 row-cols-md-4">
+    <div class="col mb-4" *ngFor="let c of category">
       <div class="card h-100">
         <img src="{{c.image}}" class="card-img-top" alt="Category-Image">
         <div class="card-body">
@@ -14,3 +14,4 @@
     </div>
   </div>
 </div>
+

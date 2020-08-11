@@ -1,7 +1,6 @@
 <div class="container-lg">
-
   <div class="row">
-    <div class="col-sm">
+    <div class="col-12">
       <form class="item">
         <div class="form-group">
           <label for="formGroupExampleInput">Ведіть назву категорії</label>
@@ -15,7 +14,6 @@
 
         <div class="progress mb-3 mt-3">
           <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="( uploadProgress | async ) + '%'" aria-valuemin="0" aria-valuemax="100"></div>
-
         </div>
 
         <button class="btn btn-success" (click)="addCategory()" *ngIf="submited; else edit">Додати категорію</button>
@@ -23,8 +21,7 @@
       </form>
     </div>
 
-    <div class="col-sm">
-
+    <div class="col-12">
       <table class="table item table-responsive-lg">
         <thead class="thead-dark">
         <th>#</th>

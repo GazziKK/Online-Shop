@@ -1,6 +1,15 @@
-//.card-deck {
-//  min-width: 33.33%;
-//}
-//img{
-//  max-height: inherit;
-//}
+.container-fluid{
+  background-image: url("src/assets/Animated-Gif-Background-Hd-Wallpaper-Images-Walpaper-GIF-.gif");
+  //opacity: 0.5;
+  background-position: center;
+  height: 90vh;
+  max-width: 100%;
+  color: white;
+}
+.card {
+  border: none;
+  .card-body {
+    background-color: #212529;
+  }
+}
+

@@ -12,13 +12,11 @@ export class HeaderComponent implements OnInit {
   constructor(
     private ordersService: OrdersService,
   ) { }
-
   ngOnInit(): void {
     this.productLength();
     this.getProductsFromBasket();
-
   }
-  private productLength(): void{
+  private productLength(): void {
     this.ordersService.basket.subscribe(() => {
       this.getProductsFromBasket();
     });

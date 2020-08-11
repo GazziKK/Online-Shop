@@ -1,3 +1,16 @@
-.col-3{
-  max-width: 10rem;
+.col-xl{
+  padding: 0 ;
 }
+.nav{
+  background-color: #343a40;
+}
+.tab-content{
+  background-color: white;
+  font-size: calc(10px + 8 * (100vw / 1280));
+
+}
+a{
+  font-size: calc(0.7rem + 8 * (100vw / 1280));
+}
+
+

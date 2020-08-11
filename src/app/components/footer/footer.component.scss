@@ -1,8 +1,18 @@
-
 footer {
   background-color: #343a40;
   position: relative;
   padding: 50px 0 20px;
   //backface-visibility: hidden;
   min-height: 6vh;
+}
+.border{
+  h1{
+    color: crimson;
+  }
+  h3{
+    color: orange;
+  }
+  h4{
+    color: lawngreen;
+  }
 }
